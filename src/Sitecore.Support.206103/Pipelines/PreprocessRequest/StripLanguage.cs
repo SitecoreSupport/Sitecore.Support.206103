@@ -14,7 +14,12 @@ namespace Sitecore.Support.Pipelines.PreprocessRequest
 
       var customCulture = isLocal_custom_unspecified || cultureInfo.CultureTypes.HasFlag(CultureTypes.UserCustomCulture);
 
-      return !customCulture;
+      return !customCulture || this.IsCustomCultureAllowed(language);
+    }
+
+    protected virtual bool IsCustomCultureAllowed([NotNull] Language language)
+    {
+      return LanguageDefinitions.GetLanguageDefinition(language) != null;
     }
   }
 }
